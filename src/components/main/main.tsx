@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import * as actionHandler from "../../redux";
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { Navigation } from '../navigation';
+import { Navigation } from '../';
 
 interface MainProps {
   component: any;

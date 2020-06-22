@@ -19,6 +19,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as navigationHandler from "../../../redux/navigation";
 import { LeftDrawer } from './drawer';
+import { WorkflowIcon } from '../../../common/icons/WorkflowIcon';
+import { Button } from '@material-ui/core';
 
 interface HeaderState {
     isOpen: boolean;
@@ -149,10 +151,13 @@ class HeaderComponent extends React.Component<HeaderProps, HeaderState> {
                             className={clsx(this.props.style.menuButton, this.state.isOpen && this.props.style.hide)}
                         >
                             <MenuIcon />
-                        </IconButton>
-                        <Typography className={this.props.style.title} variant="h6" noWrap>
+                        </IconButton> 
+
+                        <Button startIcon={<WorkflowIcon size="xs" />}>Workflow Designer</Button>                   
+                        {/* <Typography className={this.props.style.title} variant="h5" noWrap>
+                            
                             Workflow Designer
-          </Typography>
+          </Typography> */}
                         <div className={this.props.style.search}>
                             <div className={this.props.style.searchIcon}>
                                 <SearchIcon />

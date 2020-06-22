@@ -14,8 +14,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
-import SvgIcon from "@material-ui/icons/LockOutlined";
 import { WorkflowIcon } from "../../common/icons/WorkflowIcon";
+import { FishIcon } from "../../common/icons/Fish";
 
 interface LoginState {
 
@@ -44,8 +44,15 @@ class LoginComponent extends React.Component<LoginProps, LoginState> {
             {!this.props.isAuthed ? (
                 <Grid container component="main" className={classes.root}>
                     <CssBaseline />
-                    <Grid item xs={false} sm={4} md={7}>
-                        <WorkflowIcon />
+                    <Grid item xs={false} sm={4} md={7} component={Paper} elevation={6} square>
+                        <Grid container justify="center" alignItems="center" className={classes.root}>
+                            {/* <Grid key={'workflowIcon'} item justify="center" alignItems="flex-end" style={{height: '50%', width: '50%'}}>
+                                <FishIcon />
+                            </Grid> */}
+                            <Grid key={'fishIcon'} item justify="center">
+                                <WorkflowIcon size="md"/>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                         <div className={classes.paper}>
@@ -54,7 +61,7 @@ class LoginComponent extends React.Component<LoginProps, LoginState> {
                             </Avatar>
                             <Typography component="h1" variant="h5">
                                 Sign in
-          </Typography>
+                            </Typography>
                             <form className={classes.form} noValidate onSubmit={this.handleAuth}>
                                 <TextField
                                     variant="outlined"

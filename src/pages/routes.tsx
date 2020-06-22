@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import {Main} from "../";
-import {LoginPage, DashboardPage, WorkflowsPage, WorkflowInstancesPage, MonitorPage} from "../../pages";
+import {Main} from "../components";
+import {LoginPage, DashboardPage, WorkflowsPage, WorkflowInstancesPage, MonitorPage} from ".";
 
 
 export class Routes extends React.Component {

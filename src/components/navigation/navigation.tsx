@@ -1,6 +1,6 @@
 import * as React from "react";
 import { fade, makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
-import { Header } from '.';
+import { Header } from './components/header';
 
 const drawerWidth = 240;
 const useStyle = makeStyles((theme: Theme) =>

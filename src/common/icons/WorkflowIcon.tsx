@@ -1,8 +1,19 @@
 import * as React from "react";
 import { SvgIcon } from "@material-ui/core";
 
-export const WorkflowIcon = (props: any) => (
-    <SvgIcon viewBox="0 0 128 128">
+interface WorkflowIconProps {
+    size: null | 'sm' | 'xs' | 'md' | 'lg' | 'xl';
+}
+export const WorkflowIcon = (props: any) => {
+    const {size} = props;
+    const getSize = () => {
+        if (size == null || size === 'md') return {height: '75%', width: '75%'};
+        if (size === 'xs') return {height: '16', width: '16'};;
+        if (size === 'sm') return {height: '32', width: '32'};;
+        if (size === 'lg') return {height: '100%', width: '100%'};;
+    };
+    return (
+    <SvgIcon viewBox="0 0 128 128" style={getSize()}>
         <path style={{fill:"#2d3e50"}}
             d="M26.43962,71.23956H24.749V33.20438h83.55651v12.8263H99.19128L111.5367,61.57474l12.34542-15.54406h-9.11419V29.97319a3.23122,3.23122,0,0,
             0-3.2312-3.2312H21.51782a3.23122,3.23122,0,0,0-3.2312,3.2312V71.23956H16.596A15.00921,15.00921,0,0,0,1.58673,86.24876v0A15.00921,15.00921,0,
@@ -13,4 +24,4 @@ export const WorkflowIcon = (props: any) => (
             0,1-2.948-2.94794V77.63421a2.95141,2.95141,0,0,1,2.948-2.948H81.82959a2.95141,2.95141,0,0,1,2.948,2.948Z" />
         <rect style={{fill:"#1d75b8"}} x="96.66012" y="71.23956" width="29.75314" height="29.75313" rx="14.21521" ry="14.21521" />
     </SvgIcon>
-);
+)};

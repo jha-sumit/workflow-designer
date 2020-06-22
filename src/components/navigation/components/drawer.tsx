@@ -5,11 +5,11 @@ import * as navigationHandler from "../../../redux/navigation";
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import LowPriorityIcon from '@material-ui/icons/LowPriority';
 import IconButton from '@material-ui/core/IconButton';
 import { Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { RouteResource } from '../../../resources/navigation';
 
 
 interface DrawerState {
@@ -63,6 +63,14 @@ class DrawerComponent extends React.Component<DrawerProps, DrawerState> {
                 </div>
                 <Divider />
                 <List>
+                    {RouteResource.map(element => (
+                        <ListItem button key={element.label} href={element.path}>
+                            <ListItemIcon>{element.icon}</ListItemIcon>
+                            <ListItemText primary={element.label} />
+                        </ListItem>
+                    ))}
+                </List>
+                {/* 
                     <ListItem button key={'Dashboard'} href={'/dashboard'}>
                         <ListItemIcon><DashboardIcon /></ListItemIcon>
                         <ListItemText primary={'Dashboard'} />
@@ -73,17 +81,22 @@ class DrawerComponent extends React.Component<DrawerProps, DrawerState> {
                     WORKFLOWS
                 </Typography> */}
                 <List>
-                <ListItem button key={'Workflows'} component="a" href={'/workflows'}>
-                            <ListItemIcon><DoubleArrowIcon /></ListItemIcon>
-                            <ListItemText primary={'Workflows'} />
-                        </ListItem>
-                    
-                        <ListItem button key={'Active Instances'} component="a" href={'/workflow-instances'}>
-                            <ListItemIcon><LowPriorityIcon /></ListItemIcon>
-                            <ListItemText primary={'Active Instances'} />
-                        </ListItem>
-                
-                </List>
+                    <ListItem button key={'Workflows'} component="a" href={'/workflows'}>
+                        <ListItemIcon><DoubleArrowIcon /></ListItemIcon>
+                        <ListItemText primary={'Workflows'} />
+                    </ListItem>
+
+                    <ListItem button key={'Active Instances'} component="a" href={'/workflow-instances'}>
+                        <ListItemIcon><LowPriorityIcon /></ListItemIcon>
+                        <ListItemText primary={'Active Instances'} />
+                    </ListItem>
+
+                    <ListItem button key={'Active Instances'} component="a" href={'/monitor'}>
+                        <ListItemIcon><LowPriorityIcon /></ListItemIcon>
+                        <ListItemText primary={'Events'} />
+                    </ListItem>
+
+                </List> */}
             </Drawer>
         );
     }
