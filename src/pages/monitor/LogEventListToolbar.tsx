@@ -46,7 +46,7 @@ export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarP
                 </Typography>
             ) : (
                     <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                        Nutrition
+                        Workflows
                     </Typography>
                 )}
             {numSelected > 0 ? (

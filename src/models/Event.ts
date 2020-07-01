@@ -1,7 +1,4 @@
-interface Comparator {
-    
-}
-export class Workflow {
+export class LogEvent {
     public id: number = 0;
     public createdBy: string = '';
     public createdOn: Date = new Date();
@@ -14,8 +11,7 @@ export class Workflow {
     public status: string = '';
 }
 
-export class WorkflowList {
-    public data: Workflow[] = [];
+export class LogEventList {
+    public data: LogEvent[] = [];
     public lastUpdatedAt: null | Date = null;
 }
-

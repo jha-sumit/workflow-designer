@@ -1,8 +1,10 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme, Paper, TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, TablePagination } from '@material-ui/core';
+import React, { MouseEvent } from 'react';
+import { makeStyles, createStyles, Theme, Paper, Typography, TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, TablePagination, IconButton } from '@material-ui/core';
 import { Workflow, Order } from '../../models';
-import { EnhancedTableToolbar } from './WorkflowListToolbar';
-import { EnhancedTableHead } from './WorkflowListHead';
+import { EnhancedTableToolbar } from './LogEventListToolbar';
+import { EnhancedTableHead } from './LogEventListHead';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,32 +33,32 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
 }
 
 function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
+    order: Order,
+    orderBy: Key,
 ): (a: { [key in Key]: number | string | Date }, b: { [key in Key]: number | string | Date }) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
 }
 
 interface EnhancedTableProps {
@@ -79,7 +81,7 @@ export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = (props
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const {rows} = props;
+    const { rows } = props;
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Workflow) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -129,6 +131,18 @@ export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = (props
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+    const viewInstances = (event: MouseEvent, data: any) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("View" + data);
+    }
+
+    const editWorkflow = (event: MouseEvent, data: any) => {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("Edit" + data);
+    }
+
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -163,8 +177,7 @@ export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = (props
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
                                             key={row.name}
-                                            selected={isItemSelected}
-                                        >
+                                            selected={isItemSelected}>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     checked={isItemSelected}
@@ -177,7 +190,14 @@ export const EnhancedTable: React.FunctionComponent<EnhancedTableProps> = (props
                                             <TableCell align="right">{row.activeInstanceCount}</TableCell>
                                             <TableCell align="right">{row.errorInstancesCount}</TableCell>
                                             <TableCell align="right">{row.lastRunAt}</TableCell>
-                                            <TableCell align="right">{row.status}</TableCell>
+                                            <TableCell align="right">
+                                                <IconButton size="small" onClick={(event) => editWorkflow(event, row)}>
+                                                    <EditIcon fontSize="small"/>
+                                                </IconButton>
+                                                <IconButton size="small" onClick={(event) => viewInstances(event, row)}>
+                                                    <VisibilityIcon fontSize="small"/>
+                                                </IconButton>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
