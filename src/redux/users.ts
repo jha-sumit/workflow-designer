@@ -1,5 +1,5 @@
 import { User } from "../common/models";
-import { authenticate } from "../services";
+import { authenticate } from "../server";
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -80,7 +80,7 @@ const initialState = {
   authedId: "",
 }
 
-export const users = (state: any, action: any) => {
+export const authenticationHandler = (state = initialState, action: any) => {
   switch (action.type) {
     case AUTH_USER :
       return {
@@ -116,7 +116,7 @@ export const users = (state: any, action: any) => {
           ...state,
           isFetching: false,
           error: "",
-          [action.uid]: user(state[action.uid], action),
+          [action.uid]: user(action.uid, action),
         }
     default :
       return initialState;

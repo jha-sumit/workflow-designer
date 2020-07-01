@@ -64,22 +64,12 @@ class DrawerComponent extends React.Component<DrawerProps, DrawerState> {
                 <Divider />
                 <List>
                     {RouteResource.map(element => (
-                        <ListItem button key={element.label} href={element.path}>
+                        <ListItem button key={element.label} component="a" href={element.path}>
                             <ListItemIcon>{element.icon}</ListItemIcon>
                             <ListItemText primary={element.label} />
                         </ListItem>
                     ))}
                 </List>
-                {/* 
-                    <ListItem button key={'Dashboard'} href={'/dashboard'}>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary={'Dashboard'} />
-                    </ListItem>
-                </List>
-                <Divider />
-                {/* <Typography component="h6" display="block" align="center" variant="caption" color="textPrimary">
-                    WORKFLOWS
-                </Typography> */}
                 <List>
                     <ListItem button key={'Workflows'} component="a" href={'/workflows'}>
                         <ListItemIcon><DoubleArrowIcon /></ListItemIcon>
@@ -91,12 +81,12 @@ class DrawerComponent extends React.Component<DrawerProps, DrawerState> {
                         <ListItemText primary={'Active Instances'} />
                     </ListItem>
 
-                    <ListItem button key={'Active Instances'} component="a" href={'/monitor'}>
+                    <ListItem button key={'Monitor'} component="a" href={'/monitor'}>
                         <ListItemIcon><LowPriorityIcon /></ListItemIcon>
                         <ListItemText primary={'Events'} />
                     </ListItem>
 
-                </List> */}
+                </List>
             </Drawer>
         );
     }
@@ -104,7 +94,7 @@ class DrawerComponent extends React.Component<DrawerProps, DrawerState> {
 
 export const LeftDrawer = connect(
     (state: { isOpen: boolean } & any) => {
-        return ({ isOpen: state.isOpen });
+        return ({ isOpen: state.nav.isOpen });
     },
     (dispatch) => bindActionCreators(navigationHandler, dispatch)
 )(DrawerComponent);

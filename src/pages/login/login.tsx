@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import * as actionHandler from "../../redux"
+import * as actionHandler from "../../redux/users"
 import { bindActionCreators } from "redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,7 +15,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
 import { WorkflowIcon } from "../../common/icons/WorkflowIcon";
-import { FishIcon } from "../../common/icons/Fish";
 
 interface LoginState {
 
@@ -121,6 +120,6 @@ class LoginComponent extends React.Component<LoginProps, LoginState> {
 
 export const Login = connect(
     (state: any) => (
-        { isFetching: state.isFetching, error: state.error, isAuthed: state.isAuthed }
+        { isFetching: state.auth.isFetching, error: state.auth.error, isAuthed: state.auth.isAuthed }
     ), (dispatch) => bindActionCreators(actionHandler, dispatch)
 )(LoginComponent);

@@ -1,16 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './common/theme/theme';
 import * as serviceWorker from './serviceWorker';
-import { Routes } from './components';
+import { Routes } from './pages';
 import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from 'redux';
-import { navigationHandler } from './redux/navigation';
+import { rootHandler } from './redux';
 
-const store = createStore(navigationHandler, applyMiddleware(thunk));
+const store = createStore(rootHandler, applyMiddleware(thunk));
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

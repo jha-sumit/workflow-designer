@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Login } from './login';
+import { Login } from './Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
