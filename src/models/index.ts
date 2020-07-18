@@ -1,5 +1,5 @@
-export { Workflow, WorkflowList } from './Workflow';
-export { LogEvent, LogEventList } from './Event';
+export * from './Workflow';
+export * from './Event';
 
 export type Order = 'asc' | 'desc';
 

@@ -1,1 +1,0 @@
-export {WorkflowInstances, Workflows} from "./component";

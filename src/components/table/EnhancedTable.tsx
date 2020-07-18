@@ -52,11 +52,13 @@ interface EnhancedTableProps<T> {
     rows: T[];
     dense?: boolean;
     columns: ColumnLabel<T>[];
-    rowRenderer: (data: T, index: number, isSelected: boolean, onSelect: (event:React.MouseEvent<unknown>, data:T) => void) => void;
+    allowMultipleSelection?: boolean;
+    onSelectionChange?: (selected: T[]) => void;
+    rowRenderer: (data: T, index: number, isSelected: boolean, onSelect: (event: React.MouseEvent<unknown>, data: T) => void) => void;
 }
 
 export function EnhancedTable<T>(props: EnhancedTableProps<T>) {
-    const { rows, columns, rowRenderer, defaultOrderBy } = props;
+    const { rows, columns, rowRenderer, defaultOrderBy, allowMultipleSelection } = props;
     const classes = useStyles();
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof T>(defaultOrderBy);
@@ -74,29 +76,40 @@ export function EnhancedTable<T>(props: EnhancedTableProps<T>) {
         if (event.target.checked) {
             const newSelecteds = rows.map((n) => n);
             setSelected(newSelecteds);
+            if (props.onSelectionChange !== undefined) {
+                props.onSelectionChange(newSelecteds);
+            }
             return;
         }
         setSelected([]);
+        if (props.onSelectionChange !== undefined) {
+            props.onSelectionChange([]);
+        }
     };
 
     const handleClick = (event: React.MouseEvent<unknown>, name: T) => {
-        const selectedIndex = selected.indexOf(name);
         let newSelected: T[] = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
+        if (allowMultipleSelection) {
+            const selectedIndex = selected.indexOf(name);
+            if (selectedIndex === -1) {
+                newSelected = newSelected.concat(selected, name);
+            } else if (selectedIndex === 0) {
+                newSelected = newSelected.concat(selected.slice(1));
+            } else if (selectedIndex === selected.length - 1) {
+                newSelected = newSelected.concat(selected.slice(0, -1));
+            } else if (selectedIndex > 0) {
+                newSelected = newSelected.concat(
+                    selected.slice(0, selectedIndex),
+                    selected.slice(selectedIndex + 1),
+                );
+            }
+        } else {
+            newSelected.push(name);
         }
-
         setSelected(newSelected);
+        if (props.onSelectionChange !== undefined) {
+            props.onSelectionChange(newSelected);
+        }
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -115,7 +128,7 @@ export function EnhancedTable<T>(props: EnhancedTableProps<T>) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar numSelected={selected.length} allowMultipleSelection={allowMultipleSelection} />
                 <TableContainer>
                     <Table
                         className={classes.table}
@@ -123,6 +136,7 @@ export function EnhancedTable<T>(props: EnhancedTableProps<T>) {
                         size={'small'}
                         aria-label="enhanced table">
                         <EnhancedTableHead
+                            allowMultipleSelection={allowMultipleSelection}
                             classes={classes}
                             numSelected={selected.length}
                             order={order}

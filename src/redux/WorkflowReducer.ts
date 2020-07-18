@@ -1,5 +1,6 @@
 import { Workflow } from "../models";
 import { api } from "../server";
+import { fetchAndHandleWorkflowInstances } from "./WorkflowInstanceReducer";
 
 const FETCHING_WORKFLOWS = 'FETCHING_WORKFLOWS'
 const FETCHING_WORKFLOWS_FAILURE = 'FETCHING_WORKFLOWS_FAILURE'
@@ -7,6 +8,14 @@ const FETCHING_WORKFLOWS_SUCCESS = 'FETCHING_WORKFLOWS_SUCCESS'
 
 export const fetchWorkflows = () => {
   return fetchAndHandleWorkflows();
+}
+
+export const selectWorkflow = (id: number) => {
+  return fetchAndHandleWorkflowInstances(id);
+}
+
+export const openWorkflowEditor = (id: number) => {
+    
 }
 
 const fetchingWorkflows = () => {

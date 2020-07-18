@@ -4,13 +4,13 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { Workflow } from '../../models';
 
-interface WorkflowListRowProps {
+interface LogEventListRowProps {
     row: Workflow;
     isSelected: boolean;
     index: number;
     onSelect: (event: MouseEvent, row: Workflow) => void;
 }
-export const WorkflowListRow: FunctionComponent<WorkflowListRowProps> = (props) => {
+export const LogEventListRow: FunctionComponent<LogEventListRowProps> = (props) => {
     const { row, isSelected, index, onSelect } = props;
     const labelId = `enhanced-table-checkbox-${index}`;
 

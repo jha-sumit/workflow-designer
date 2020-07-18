@@ -4,7 +4,17 @@ import * as handler from "../../redux/LogEventReducer";
 import { bindActionCreators } from "redux";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { LogEvent } from "../../models/Event";
-import { EnhancedTable } from "./LogEventListTable";
+import { EnhancedTable, ColumnLabel } from "../../components";
+import { LogEventListRow } from "./LogEventListRow";
+
+const columns: ColumnLabel<LogEvent> [] = [
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+    { id: 'activeInstanceCount', numeric: true, disablePadding: false, label: 'Active Instances' },
+    { id: 'errorInstancesCount', numeric: true, disablePadding: false, label: 'Instances in Error' },
+    { id: 'lastRunAt', numeric: true, disablePadding: false, label: 'Last Run At' },
+    { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
+];
+
 
 interface MonitorState {
 
@@ -27,16 +37,23 @@ class MonitorComponent extends React.Component<MonitorProps, MonitorState> {
         this.props.fetchLogEvents();
     }
 
+    rowRenderer = (data: LogEvent, index: number, isSelected: boolean, onSelect: (event:React.MouseEvent<unknown>, data:LogEvent) => void) => {
+        return <LogEventListRow row={data} index={index} isSelected={isSelected} onSelect={onSelect} />
+    }
+
     render() {
         const { isAvailable, data } = this.props;
         if (!isAvailable) {
-            return (<Skeleton> <EnhancedTable rows={[]}
+            return (<Skeleton> 
+                <EnhancedTable<LogEvent> rows={[]} columns={columns} allowMultipleSelection={true}
                 numSelected={0} onRequestSort={console.log} onSelectAllClick={console.log} 
-                order={'desc'} orderBy={'lastRunAt'} rowCount={0}/></Skeleton>);
+                order={'desc'} defaultOrderBy={'lastRunAt'} rowCount={0}
+                rowRenderer={this.rowRenderer} /></Skeleton>);
         } else {
-            return (<EnhancedTable rows={data} 
+            return (<EnhancedTable<LogEvent> rows={data} columns={columns} allowMultipleSelection={true}
                 numSelected={0} onRequestSort={console.log} onSelectAllClick={console.log} 
-                order={'desc'} orderBy={'lastRunAt'} rowCount={data.length} />);
+                order={'desc'} defaultOrderBy={'lastRunAt'} rowCount={data.length} 
+                rowRenderer={this.rowRenderer} />);
         }
     }
 }

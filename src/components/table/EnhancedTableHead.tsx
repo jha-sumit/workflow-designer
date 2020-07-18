@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { TableHead, TableRow, TableCell, Checkbox, TableSortLabel } from "@material-ui/core";
 import { Order } from '../../models';
 import { ColumnLabel } from '../../components';
@@ -12,10 +12,11 @@ interface EnhancedTableProps<T> {
     orderBy: keyof T;
     rowCount: number;
     columns: ColumnLabel<T>[];
+    allowMultipleSelection?: boolean;
 }
 
 export function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns } = props;
+    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns, allowMultipleSelection } = props;
     const createSortHandler = (property: keyof T) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
     };
@@ -23,6 +24,7 @@ export function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
     return (
         <TableHead>
             <TableRow>
+                {allowMultipleSelection &&
                 <TableCell padding="checkbox">
                     <Checkbox
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -30,7 +32,7 @@ export function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
                         onChange={onSelectAllClick}
                         inputProps={{ 'aria-label': 'select all desserts' }}
                     />
-                </TableCell>
+                </TableCell>}
                 {columns.map((headCell) => (
                     <TableCell
                         key={headCell.id.toString()}

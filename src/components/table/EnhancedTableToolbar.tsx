@@ -33,11 +33,12 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
+    allowMultipleSelection?: boolean;
 }
 
 export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarProps> = (props) => {
     const classes = useToolbarStyles();
-    const { numSelected } = props;
+    const { numSelected, allowMultipleSelection } = props;
     const [showSearch, setShowSearch] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,10 +55,10 @@ export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarP
     return (
         <Toolbar
             className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
+                [classes.highlight]: allowMultipleSelection && numSelected > 0,
             })}
         >
-            {numSelected > 0 ? (
+            {allowMultipleSelection && numSelected > 0 ? (
                 <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
                     {numSelected} selected
                 </Typography>
@@ -66,7 +67,7 @@ export const EnhancedTableToolbar: React.FunctionComponent<EnhancedTableToolbarP
                         Workflows
                     </Typography>
                 )}
-            {numSelected > 0 ? (
+            {allowMultipleSelection && numSelected > 0 ? (
                 <Tooltip title="Delete">
                     <IconButton aria-label="delete">
                         <DeleteIcon />
