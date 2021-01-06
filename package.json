@@ -17,7 +17,7 @@
     "@types/react-redux": "6.0.5",
     "@types/react-router-dom": "4.2.1",
     "@types/redux": "3.6.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "echarts-for-react": "^2.0.16",
     "prop-types": "15.6.2",
     "react": "16.13.1",
