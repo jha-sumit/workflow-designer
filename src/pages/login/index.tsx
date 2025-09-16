@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Login } from './Login';
 
@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 interface LoginPageProps {
   history: any;
 }
-export const LoginPage: React.StatelessComponent<LoginPageProps> = (props) => {
+export const LoginPage = () => {
   return (
-    <Login style={useStyles()} history={props.history} />
+    <Login style={useStyles()} />
   );
 }

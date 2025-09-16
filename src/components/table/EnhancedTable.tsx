@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme, Paper, TableContainer, Table, TableBod
 import { Order, compare } from '../../models';
 import { EnhancedTableToolbar } from './EnhancedTableToolbar';
 import { EnhancedTableHead } from './EnhancedTableHead';
-import { ColumnLabel } from '../../components';
+import { ColumnLabel } from './ColumnLabel';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -161,15 +161,15 @@ export function EnhancedTable<T>(props: EnhancedTableProps<T>) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
+                {/*<TablePagination*/}
+                {/*    rowsPerPageOptions={[5, 10, 25]}*/}
+                {/*    component="div"*/}
+                {/*    count={rows.length}*/}
+                {/*    rowsPerPage={rowsPerPage}*/}
+                {/*    page={page}*/}
+                {/*    onChangePage={handleChangePage}*/}
+                {/*    onChangeRowsPerPage={handleChangeRowsPerPage}*/}
+                {/*/>*/}
             </Paper>
         </div>
     );

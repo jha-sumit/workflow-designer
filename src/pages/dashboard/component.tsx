@@ -1,16 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Dashboard } from './dashboard';
+import {makeStyles} from '@material-ui/core/styles';
+import {Dashboard} from './dashboard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-      },
-      paper: {
+    },
+    paper: {
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-      },
+    },
 }));
 
 interface DashboardPageProps {
@@ -20,6 +20,6 @@ interface DashboardPageProps {
 export const DashboardPage: React.StatelessComponent<DashboardPageProps> = (props) => {
 
     return (
-        <Dashboard style={useStyles()} history={props.history} />
+        <Dashboard style={useStyles()} history={props.history}/>
     );
 }

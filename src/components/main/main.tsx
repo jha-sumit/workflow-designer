@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import * as actionHandler from "../../redux";
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { Navigation } from '../';
 
 interface MainProps {
@@ -15,15 +15,15 @@ interface MainProps {
 
 const MainContainer: React.StatelessComponent<MainProps> = (props) => {
   const { component: Component, ...rest } = props;
-  return <Route {...rest} render={matchProps =>
+  return <Route {...rest} element={
     (props.checkAuthentication && !props.isAuthed) ?
       (
-        <Redirect to="/" />
+        <Navigate to="/" />
       ) :
       (
         <div className="wrapper">
-          <Navigation {...matchProps} />
-          <Component {...matchProps} />
+          <Navigation  />
+          <Component {...rest} />
           <div className="push"></div>
         </div>
       )

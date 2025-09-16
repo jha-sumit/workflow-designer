@@ -1,26 +1,24 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import {
+    Box,
+    Collapse,
+    IconButton, Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography
+} from "@mui/material";
+import Caret from "@components/icons/Caret";
+import styled from "styled-components";
+import {useState} from "react";
 
-const useRowStyles = makeStyles({
-  root: {
+const StyleTableRow = styled(TableRow)`
     '& > *': {
-      borderBottom: 'unset',
-    },
-  },
-});
+        border-bottom: unset;
+    };
+`;
 
 function createData(
   name: string,
@@ -46,15 +44,14 @@ function createData(
 
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
-  const classes = useRowStyles();
+  const [open, setOpen] = useState(false);
 
   return (
-    <React.Fragment>
-      <TableRow className={classes.root}>
+    <>
+      <StyleTableRow>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {open ? <Caret.Up /> : <Caret.Down />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
@@ -64,7 +61,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
         <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="right">{row.carbs}</TableCell>
         <TableCell align="right">{row.protein}</TableCell>
-      </TableRow>
+      </StyleTableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -100,7 +97,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 }
 

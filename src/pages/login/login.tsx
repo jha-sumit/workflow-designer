@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { WorkflowIcon } from "../../common/icons/WorkflowIcon";
 
 interface LoginState {
@@ -112,7 +112,7 @@ class LoginComponent extends React.Component<LoginProps, LoginState> {
                         </div>
                     </Grid>
                 </Grid>)
-                : (<Redirect to="/dashboard" />)
+                : (<Navigate to="/dashboard" />)
             }</div>
         );
     }

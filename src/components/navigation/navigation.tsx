@@ -105,11 +105,7 @@ const useStyle = makeStyles((theme: Theme) =>
     }),
 );
 
-interface NavigationProps {
-    history: any;
-}
-
-export const Navigation: React.StatelessComponent<NavigationProps> = (props) => {
+export const Navigation = () => {
     const style = useStyle();
     const theme = useTheme();
     return (
